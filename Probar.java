@@ -1,3 +1,4 @@
+//Probar Red con algunos patrones
 public class Probar {
 //Datos de entrenamiento
     static float[] entradas1 = {0.3f, 0.5f, 0.9f};
