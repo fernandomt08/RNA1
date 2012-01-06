@@ -264,8 +264,7 @@ public float[] calcular(float[] ent) {
   
   //Funcion sigmoidee
   protected float sigmoide(float x) {
-    return
-    (float) (1.0f / (1.0f + Math.exp((double) (-x))));   //C = 1
+    return (float) (1.0f / (1.0f + Math.exp((double) (-x))));   //C = 1
   }
 //Primer derivada de la funcion sigmoide
   protected float gradiente(float x) {
