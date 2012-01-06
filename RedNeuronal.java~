@@ -238,7 +238,7 @@ public float[] calcular(float[] ent) {
       for (h = 0; h < neuronascapa1; h++) {
         for (i = 0; i < numeroentradas; i++) {
           W1[i][h] += FACTOR_APRENDIZAJE * capaoculta1_error[h] * entradas[i]
-                      + FACTOR_MOMENTO*M1[i][h];
+          + FACTOR_MOMENTO*(FACTOR_APRENDIZAJE * capaoculta1_error[h] * entradas[i] - M1[i][h]);
           W1[i][h] = normalizarPeso(W1[i][h]);
           M1[i][h] = FACTOR_APRENDIZAJE * capaoculta1_error[h] * entradas[i];
         }
