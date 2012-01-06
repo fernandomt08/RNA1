@@ -19,6 +19,11 @@ class RedNeuronal implements Serializable {
   protected float W2[][];    //Almacena los pesos de las conexiones entre la primer capa oculta y la segunda
   protected float W3[][];    //Almacena los pesos de las conexiones entre la segunda capa oculta y la capa de salida
 
+  //Matrices para almacenar los valores del momento
+  protected float M1[][];
+  protected float M2[][];
+  protected float M3[][];
+  
   protected float error_salida[];  //Almacena el error que existe en cada una de las celulas de la capa de salida
   protected float capaoculta1_error[]; //Almacena el error que existe en cada celula de la primer capa
   protected float capaoculta2_error[]; //Almacena el error que existe en cada celula de la segunda capa oculta
@@ -27,6 +32,7 @@ class RedNeuronal implements Serializable {
   transient protected ArrayList salidasEntrenamiento = new ArrayList(); //Almacena los datos de entrenamiento(Resultados que se esperan obtener )
 
   public float FACTOR_APRENDIZAJE = 0.6f;   //Factor de aprendizaje
+ public float FACTOR_MOMENTO = 0.3f;   //Factor de momento
 
   public RedNeuronal(int numero_entradas, int num_capaoculta1, int num_capaoculta2, int numero_salidas) { //Constructor de la red neuronal
   							//Primero parametro: Número de neuronas en la capa de entrada
@@ -45,6 +51,10 @@ class RedNeuronal implements Serializable {
     W1 = new float[numeroentradas][neuronascapa1];  //Inicializamos las matrices que almacenan los pesos de las conexiones entre cada capa
     W2 = new float[neuronascapa1][neuronascapa2];
     W3 = new float[neuronascapa2][numerosalidas];
+    
+    M1 = new float[numeroentradas][neuronascapa1];
+    M2 = new float[neuronascapa1][neuronascapa2];
+    M3 = new float[neuronascapa2][numerosalidas];
     generarPesos();		//Inicializa los pesos aleatoriamente
 
     error_salida = new float[numerosalidas];   //Inicializamos los vectores que almacenan los porcentajes de errores de la neurona
@@ -206,22 +216,31 @@ public float[] calcular(float[] ent) {
     // Actualiza pesos entre la capa 2 y la de salida
       for (o = 0; o < numerosalidas; o++) {
         for (h = 0; h < neuronascapa2; h++) {
-          W3[h][o] += FACTOR_APRENDIZAJE * error_salida[o] * capaoculta2[h];
+
+//       System.out.println("Diferencia: " + (FACTOR_APRENDIZAJE * error_salida[o] * capaoculta2[h] - M3[h][o]));
+          W3[h][o] += FACTOR_APRENDIZAJE * error_salida[o] * capaoculta2[h] 
+          + FACTOR_MOMENTO*(FACTOR_APRENDIZAJE * error_salida[o] * capaoculta2[h] - M3[h][o]);
           W3[h][o] = normalizarPeso(W3[h][o]);
+          M3[h][o] = FACTOR_APRENDIZAJE * error_salida[o] * capaoculta2[h];
+
         }
       }
       //Actualiza los pesos entre la capa 1 y la capa 2
       for (o = 0; o < neuronascapa2; o++) {
         for (h = 0; h < neuronascapa1; h++) {
-          W2[h][o] += FACTOR_APRENDIZAJE * capaoculta2_error[o] * capaoculta1[h];
+          W2[h][o] += FACTOR_APRENDIZAJE * capaoculta2_error[o] * capaoculta1[h]
+          + FACTOR_MOMENTO*(FACTOR_APRENDIZAJE * capaoculta2_error[o] * capaoculta1[h] - M2[h][o]);
           W2[h][o] = normalizarPeso(W2[h][o]);
+          M2[h][o] = FACTOR_APRENDIZAJE * capaoculta2_error[o] * capaoculta1[h] ;
         }
       }
       // Actualiza los pesos entre la capa de entrada y la primer capa oculta
       for (h = 0; h < neuronascapa1; h++) {
         for (i = 0; i < numeroentradas; i++) {
-          W1[i][h] += FACTOR_APRENDIZAJE * capaoculta1_error[h] * entradas[i];
+          W1[i][h] += FACTOR_APRENDIZAJE * capaoculta1_error[h] * entradas[i]
+          + FACTOR_MOMENTO*(FACTOR_APRENDIZAJE * capaoculta1_error[h] * entradas[i] - M1[i][h]);
           W1[i][h] = normalizarPeso(W1[i][h]);
+          M1[i][h] = FACTOR_APRENDIZAJE * capaoculta1_error[h] * entradas[i];
         }
       }
       for (o = 0; o < numerosalidas; o++) {
@@ -248,16 +267,16 @@ public float[] calcular(float[] ent) {
     return
     (float) (1.0f / (1.0f + Math.exp((double) (-x))));   //C = 1
   }
-//Primer derivada de la funcion sigmoidee
+//Primer derivada de la funcion sigmoide
   protected float gradiente(float x) {
     double z = sigmoide(x); //  + FACTOR_APRENDIZAJE;
     return (float) (z * (1.0f - z));
   }
 //Este metodo obtiene de un archivo un objeto de tipo red neuronal
-  public static RedNeuronal CargarRed(String serialized_nombre_archivo) {
+  public static RedNeuronal CargarRed(String nombre_archivo) {
     RedNeuronal rn = null;
     try {
-      InputStream entradasEntrenamiento = ClassLoader.getSystemResourceAsStream(serialized_nombre_archivo);
+      InputStream entradasEntrenamiento = ClassLoader.getSystemResourceAsStream(nombre_archivo);
       if (entradasEntrenamiento == null) {
         System.out.println("Error al tratar de abrir el archivo");
         System.exit(1);

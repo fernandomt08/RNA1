@@ -61,7 +61,11 @@ public class Probar {
         //Abre el archivo con el objeto almacenado anteriormente y probamos nuevamente para verificar que se guarda 
         //Correctamente la configuracion del objeto
         RedNeuronal nn2 = RedNeuronal.CargarRed("test.rna");
-
+       // nn2.agregarDatosEntrenamiento(entradas1, salidas1);
+       // nn2.agregarDatosEntrenamiento(entradas2, salidas2);
+        //nn2.agregarDatosEntrenamiento(entradas3, salidas3);
+        //nn2.agregarDatosEntrenamiento(entradas4, salidas4);
+        //nn2.agregarDatosEntrenamiento(entradas5, salidas5);
         Probar_configuracion(nn2, Prueba1);
         Probar_configuracion(nn2, Prueba2);
         Probar_configuracion(nn2, Prueba4);
@@ -78,5 +82,12 @@ public class Probar {
         	System.out.print(results[i] + " \n");
 
     }
-
+	//Para dar formato a los datos
+    public static String pp(float x) {
+        String s = new String("" + x + "00");
+        int index = s.indexOf(".");
+        if (index > -1) s = s.substring(0, index + 3);
+        if (s.startsWith("-") == false) s = " " + s;
+        return s;
+    }
 }
