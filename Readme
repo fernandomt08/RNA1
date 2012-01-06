@@ -1,2 +1,7 @@
 Primera Versión de la Red neuronal
 El algoritmo hace uso de Bias en cada capa oculta asi como en la capa de salida
+
+En esta segunda version hice una modificacion en la forma de calcular el momento:
+  Solo sume el resultado de multiplicar el peso del ciclo anterior
+	multiplicado por el factor del Momento, hice algunas pruebas pero no note 
+	mucha diferencia con la version que solo usa Bias.
