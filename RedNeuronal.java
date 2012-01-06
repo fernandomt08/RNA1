@@ -219,7 +219,7 @@ public float[] calcular(float[] ent) {
 
 //       System.out.println("Diferencia: " + (FACTOR_APRENDIZAJE * error_salida[o] * capaoculta2[h] - M3[h][o]));
           W3[h][o] += FACTOR_APRENDIZAJE * error_salida[o] * capaoculta2[h] 
-		      + FACTOR_MOMENTO*M3[h][o];
+		      + FACTOR_MOMENTO*M3[h][o]; // Se implementa un "momento" al algoritmo
           W3[h][o] = normalizarPeso(W3[h][o]);
           M3[h][o] = FACTOR_APRENDIZAJE * error_salida[o] * capaoculta2[h];
 
@@ -229,7 +229,7 @@ public float[] calcular(float[] ent) {
       for (o = 0; o < neuronascapa2; o++) {
         for (h = 0; h < neuronascapa1; h++) {
           W2[h][o] += FACTOR_APRENDIZAJE * capaoculta2_error[o] * capaoculta1[h]
-                      + FACTOR_MOMENTO*M2[h][o];
+                      + FACTOR_MOMENTO*M2[h][o]; // Se implementa un "momento" al algoritmo
           W2[h][o] = normalizarPeso(W2[h][o]);
           M2[h][o] = FACTOR_APRENDIZAJE * capaoculta2_error[o] * capaoculta1[h] ;
         }
@@ -238,7 +238,7 @@ public float[] calcular(float[] ent) {
       for (h = 0; h < neuronascapa1; h++) {
         for (i = 0; i < numeroentradas; i++) {
           W1[i][h] += FACTOR_APRENDIZAJE * capaoculta1_error[h] * entradas[i]
-                      + FACTOR_MOMENTO*M1[i][h];
+                      + FACTOR_MOMENTO*M1[i][h];  // Se implementa un "momento" al algoritmo
           W1[i][h] = normalizarPeso(W1[i][h]);
           M1[i][h] = FACTOR_APRENDIZAJE * capaoculta1_error[h] * entradas[i];
         }
