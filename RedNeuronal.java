@@ -32,7 +32,7 @@ class RedNeuronal implements Serializable {
   transient protected ArrayList salidasEntrenamiento = new ArrayList(); //Almacena los datos de entrenamiento(Resultados que se esperan obtener )
 
   public float FACTOR_APRENDIZAJE = 0.6f;   //Factor de aprendizaje
- public float FACTOR_MOMENTO = 0.3f;   //Factor de momento
+  public float FACTOR_MOMENTO = 0.3f;   //Factor de momento
 
   public RedNeuronal(int numero_entradas, int num_capaoculta1, int num_capaoculta2, int numero_salidas) { //Constructor de la red neuronal
   							//Primero parametro: Número de neuronas en la capa de entrada
