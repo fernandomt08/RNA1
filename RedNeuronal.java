@@ -48,9 +48,9 @@ class RedNeuronal implements Serializable {
     capaoculta1 = new float[neuronascapa1];
     capaoculta2 = new float[neuronascapa2];
     salidas = new float[numerosalidas];
-    W1 = new float[numeroentradas][neuronascapa1];  //Inicializamos las matrices que almacenan los pesos de las conexiones entre cada capa
-    W2 = new float[neuronascapa1][neuronascapa2];
-    W3 = new float[neuronascapa2][numerosalidas];
+    W1 = new float[numeroentradas + 1][neuronascapa1];  //Inicializamos las matrices que almacenan los pesos de las conexiones entre cada capa
+    W2 = new float[neuronascapa1 + 1][neuronascapa2];
+    W3 = new float[neuronascapa2 + 1][numerosalidas];
     
     M1 = new float[numeroentradas][neuronascapa1];
     M2 = new float[neuronascapa1][neuronascapa2];
@@ -81,15 +81,15 @@ class RedNeuronal implements Serializable {
 //Método para iniciar aleatoriamente cada matriz de pesos(Con valores de -1 a +1)
   public void generarPesos() {
 
-    for (int i = 0; i < numeroentradas; i++)
+    for (int i = 0; i < numeroentradas + 1; i++)
       for (int h = 0; h < neuronascapa1; h++)
         W1[i][h] = 2f * (float) Math.random() - 1f;
         
-    for (int i = 0; i < neuronascapa1; i++)
+    for (int i = 0; i < neuronascapa1 + 1; i++)
       for (int h = 0; h < neuronascapa2; h++)
         W2[i][h] = 2f * (float) Math.random() - 1f;
         
-    for (int h = 0; h < neuronascapa2; h++)
+    for (int h = 0; h < neuronascapa2 + 1; h++)
       for (int o = 0; o < numerosalidas; o++)
         W3[h][o] = 2f * (float) Math.random() - 1f;
   }
@@ -131,26 +131,41 @@ public float[] calcular(float[] ent) {
     for (i = 0; i < numeroentradas; i++) {
       for (h = 0; h < neuronascapa1; h++) {
 //	capaoculta1[h] += sigmoide(entradas[i] * W1[i][h]);
-        capaoculta1[h] += entradas[i] * W1[i][h] +1*1;  //1*1 es el Bias que agregue al algoritmo
+        capaoculta1[h] += entradas[i] * W1[i][h];// +1*1;  //1*1 es el Bias que agregue al algoritmo
       }
+
     }
+    
+      for (h = 0; h < neuronascapa1; h++) {
+    	capaoculta1[h] += 1*1;//W1[numeroentradas][h];
+      }
     
     //Segunda Capa oculta
     for (i = 0; i < neuronascapa1; i++) {
       for (h = 0; h < neuronascapa2; h++) {
 //	capaoculta2[h] += sigmoide(capaoculta1[i] * W2[i][h]);
-        capaoculta2[h] += capaoculta1[i] * W2[i][h] + 1*1; //1*1 es el Bias que agregue al algoritmo
+        capaoculta2[h] += capaoculta1[i] * W2[i][h];// + 1*1; //1*1 es el Bias que agregue al algoritmo
       }
+
     }
+    
+    for (h = 0; h < neuronascapa2; h++) {
+    	capaoculta2[h] += 1*1;//W2[neuronascapa1][h];
+      }
 
     //Capa de Salida     
       
     for (h = 0; h < neuronascapa2; h++) {
       for (o = 0; o < numerosalidas; o++) {
 //      	salidas[o] += sigmoide(capaoculta2[h] * W3[h][o]);
-        salidas[o] += sigmoide(capaoculta2[h]) * W3[h][o] + 1*1; //1*1 es el Bias que agregue al algoritmo
+        salidas[o] += sigmoide(capaoculta2[h]) * W3[h][o];// + 1*1; //1*1 es el Bias que agregue al algoritmo
       }
+
     }
+    
+    for (o = 0; o < numerosalidas; o++) {
+      salidas[o] += 1*1;//W3[neuronascapa2][o];
+      }
   }
 
 /*  public float entrenar() {

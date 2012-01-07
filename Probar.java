@@ -33,9 +33,9 @@ public class Probar {
     static float[] salidas10a = {1f};
         
 //Datos para probar la red despues del entrenamiento
-    static float[] prueba1 = {1.0f, 1.0f, 1.0f, 0.9f};
-    static float[] prueba2 = {1.0f, 1.0f, 0.9f, 1.0f};
-    static float[] prueba3 = {0.9f, 1.0f, 1.0f, 1.0f};
+    static float[] prueba1 = {1.0f, 1.0f, 1.0f, 1.0f};
+    static float[] prueba2 = {0.0f, 0.0f, 0.0f, 0.0f};
+    static float[] prueba3 = {1.0f, 0.1f, 1.0f, 1.0f};
 
     public static void main(String[] args) {
     	//Creamos una nueva red neuronal
