@@ -19,11 +19,6 @@ class RedNeuronal implements Serializable {
   protected float W2[][];    //Almacena los pesos de las conexiones entre la primer capa oculta y la segunda
   protected float W3[][];    //Almacena los pesos de las conexiones entre la segunda capa oculta y la capa de salida
 
-  //Matrices para almacenar los valores del momento
-  protected float M1[][];
-  protected float M2[][];
-  protected float M3[][];
-  
   protected float error_salida[];  //Almacena el error que existe en cada una de las celulas de la capa de salida
   protected float capaoculta1_error[]; //Almacena el error que existe en cada celula de la primer capa
   protected float capaoculta2_error[]; //Almacena el error que existe en cada celula de la segunda capa oculta
@@ -32,8 +27,7 @@ class RedNeuronal implements Serializable {
   transient protected ArrayList salidasEntrenamiento = new ArrayList(); //Almacena los datos de entrenamiento(Resultados que se esperan obtener )
 
   public float FACTOR_APRENDIZAJE = 0.1f;   //Factor de aprendizaje
-  public float FACTOR_MOMENTO = 0.9f;   //Factor de momento
-
+  private int ejemplo_actual = 0;
   public RedNeuronal(int numero_entradas, int num_capaoculta1, int num_capaoculta2, int numero_salidas) { //Constructor de la red neuronal
   							//Primero parametro: Número de neuronas en la capa de entrada
 							//Segundo: Numero de neuronas en la primer capa oculta
@@ -52,9 +46,6 @@ class RedNeuronal implements Serializable {
     W2 = new float[neuronascapa1 + 1][neuronascapa2];
     W3 = new float[neuronascapa2 + 1][numerosalidas];
     
-    M1 = new float[numeroentradas][neuronascapa1];
-    M2 = new float[neuronascapa1][neuronascapa2];
-    M3 = new float[neuronascapa2][numerosalidas];
     generarPesos();		//Inicializa los pesos aleatoriamente
 
     error_salida = new float[numerosalidas];   //Inicializamos los vectores que almacenan los porcentajes de errores de la neurona
@@ -122,9 +113,9 @@ public float[] calcular(float[] ent) {
       capaoculta2[h] = 0.0f;
     }
     
-    for (o = 0; o < numerosalidas; o++)
+    for (o = 0; o < numerosalidas; o++){
       salidas[o] = 0.0f;
-      
+    }
       
     
     //Primer Capa Oculta
@@ -143,36 +134,28 @@ public float[] calcular(float[] ent) {
     //Segunda Capa oculta
     for (i = 0; i < neuronascapa1; i++) {
       for (h = 0; h < neuronascapa2; h++) {
-//	capaoculta2[h] += sigmoide(capaoculta1[i] * W2[i][h]);
-        capaoculta2[h] += capaoculta1[i] * W2[i][h];// + 1*1; //1*1 es el Bias que agregue al algoritmo
+        capaoculta2[h] += capaoculta1[i] * W2[i][h];
       }
 
     }
     
     for (h = 0; h < neuronascapa2; h++) {
-    	capaoculta2[h] += 1*1;//W2[neuronascapa1][h];
+    	capaoculta2[h] += 1*1;//Bias
       }
 
     //Capa de Salida     
       
     for (h = 0; h < neuronascapa2; h++) {
       for (o = 0; o < numerosalidas; o++) {
-//      	salidas[o] += sigmoide(capaoculta2[h] * W3[h][o]);
-        salidas[o] += sigmoide(capaoculta2[h]) * W3[h][o];// + 1*1; //1*1 es el Bias que agregue al algoritmo
+        salidas[o] += sigmoide(capaoculta2[h]) * W3[h][o];
       }
 
     }
     
     for (o = 0; o < numerosalidas; o++) {
-      salidas[o] += 1*1;//W3[neuronascapa2][o];
+      salidas[o] += 1*1;//Bias
       }
   }
-
-/*  public float entrenar() {
-    return ModificaPesos(entradasEntrenamiento, salidasEntrenamiento);
-  }*/
-
-  private int ejemplo_actual = 0;
 
   public float entrenar() {
     int i, h, o;
@@ -181,7 +164,7 @@ public float[] calcular(float[] ent) {
     ArrayList salidasEntrenamiento = this.salidasEntrenamiento;
     int num_casos = entradasEntrenamiento.size();
 
-      // zero out error arrays:
+
     for (h = 0; h < neuronascapa1; h++)
       capaoculta1_error[h] = 0.0f;
     for (h = 0; h < neuronascapa2; h++)
@@ -197,6 +180,7 @@ public float[] calcular(float[] ent) {
     
     // Copia los valores de salida
     float[] salidaso = (float[]) salidasEntrenamiento.get(ejemplo_actual);
+    
 
 
 
@@ -232,9 +216,8 @@ public float[] calcular(float[] ent) {
       for (o = 0; o < numerosalidas; o++) {
         for (h = 0; h < neuronascapa2; h++) {
 
-//       System.out.println("Diferencia: " + (FACTOR_APRENDIZAJE * error_salida[o] * capaoculta2[h] - M3[h][o]));
+
           W3[h][o] += FACTOR_APRENDIZAJE * error_salida[o] * capaoculta2[h];
-//		      + FACTOR_MOMENTO*M3[h][o]; // Se implementa un "momento" al algoritmo
           W3[h][o] = normalizarPeso(W3[h][o]);
           M3[h][o] = FACTOR_APRENDIZAJE * error_salida[o] * capaoculta2[h];
 
@@ -244,7 +227,6 @@ public float[] calcular(float[] ent) {
       for (o = 0; o < neuronascapa2; o++) {
         for (h = 0; h < neuronascapa1; h++) {
           W2[h][o] += FACTOR_APRENDIZAJE * capaoculta2_error[o] * capaoculta1[h];
-//                      + FACTOR_MOMENTO*M2[h][o]; // Se implementa un "momento" al algoritmo
           W2[h][o] = normalizarPeso(W2[h][o]);
           M2[h][o] = FACTOR_APRENDIZAJE * capaoculta2_error[o] * capaoculta1[h] ;
         }
@@ -253,7 +235,6 @@ public float[] calcular(float[] ent) {
       for (h = 0; h < neuronascapa1; h++) {
         for (i = 0; i < numeroentradas; i++) {
           W1[i][h] += FACTOR_APRENDIZAJE * capaoculta1_error[h] * entradas[i];
-//                      + FACTOR_MOMENTO*M1[i][h];  // Se implementa un "momento" al algoritmo
           W1[i][h] = normalizarPeso(W1[i][h]);
           M1[i][h] = FACTOR_APRENDIZAJE * capaoculta1_error[h] * entradas[i];
         }
