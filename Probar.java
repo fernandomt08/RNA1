@@ -83,26 +83,24 @@ public class Probar {
         for(int ent = 0;ent<1;ent++){
 		for (int i = 0;; i++) {
 		    error = (double)nn.entrenar();
-		    if(error<1e-6 | i >3000 ){
-	        	//System.out.println("Ciclos Totales: " + i + " Error= " + error/100.0);
+		    if(error<1e-6 | i >300000 ){
+	        	System.out.println("Ciclos Totales: " + i + " Error= " + error/100.0);
 	        	break;
 	            }
-	            System.out.println(i + " " + error);
+//	            System.out.println(i + " " + error);
 	            error = 0;
 
 
 	}
 
-	//	System.out.println("Tiempo Total: " + (System.currentTimeMillis() - tiempoInicio)/1000.0 + "S");
-/*		promedioe += error;  */     
+	System.out.println("Tiempo Total: " + (System.currentTimeMillis() - tiempoInicio)/1000.0 + "S");
 
-//	System.out.println(" errorp= " + promedioe/3);
 
 
 
         
         //Probamos la red entrenada con los datos de prueba
-        /*Probar_configuracion(nn, prueba1);
+        Probar_configuracion(nn, prueba1);
         Probar_configuracion(nn, prueba2);
         Probar_configuracion(nn, prueba3);
         Probar_configuracion(nn, prueba4);
@@ -121,7 +119,7 @@ public class Probar {
         Probar_configuracion(nn, prueba17);
         Probar_configuracion(nn, prueba18);
         Probar_configuracion(nn, prueba19);
-        Probar_configuracion(nn, prueba20);*/
+        Probar_configuracion(nn, prueba20);
 /*      */  
         
         

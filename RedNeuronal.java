@@ -219,7 +219,6 @@ public float[] calcular(float[] ent) {
 
           W3[h][o] += FACTOR_APRENDIZAJE * error_salida[o] * capaoculta2[h];
           W3[h][o] = normalizarPeso(W3[h][o]);
-          M3[h][o] = FACTOR_APRENDIZAJE * error_salida[o] * capaoculta2[h];
 
         }
       }
@@ -228,7 +227,6 @@ public float[] calcular(float[] ent) {
         for (h = 0; h < neuronascapa1; h++) {
           W2[h][o] += FACTOR_APRENDIZAJE * capaoculta2_error[o] * capaoculta1[h];
           W2[h][o] = normalizarPeso(W2[h][o]);
-          M2[h][o] = FACTOR_APRENDIZAJE * capaoculta2_error[o] * capaoculta1[h] ;
         }
       }
       // Actualiza los pesos entre la capa de entrada y la primer capa oculta
@@ -236,7 +234,6 @@ public float[] calcular(float[] ent) {
         for (i = 0; i < numeroentradas; i++) {
           W1[i][h] += FACTOR_APRENDIZAJE * capaoculta1_error[h] * entradas[i];
           W1[i][h] = normalizarPeso(W1[i][h]);
-          M1[i][h] = FACTOR_APRENDIZAJE * capaoculta1_error[h] * entradas[i];
         }
       }
       for (o = 0; o < numerosalidas; o++) {
