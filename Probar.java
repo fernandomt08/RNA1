@@ -107,27 +107,27 @@ static float[] entradas1 = {0.9f, 0.6f, 0.5f, 0.4f};
         System.out.println("*******************************************************************");
         System.out.println("Cargando Datos...");
         RedNeuronal nn2 = RedNeuronal.CargarRed("Funciona.rna");
-        Probar_configuracion(nn, prueba1);
-        Probar_configuracion(nn, prueba2);
-        Probar_configuracion(nn, prueba3);
-        Probar_configuracion(nn, prueba4);/**/
-  	Probar_configuracion(nn, prueba5);
-        Probar_configuracion(nn, prueba6);
-        Probar_configuracion(nn, prueba7);
-        Probar_configuracion(nn, prueba8);
-        Probar_configuracion(nn, prueba9);
+        Probar_configuracion(nn2, prueba1);
+        Probar_configuracion(nn2, prueba2);
+        Probar_configuracion(nn2, prueba3);
+        Probar_configuracion(nn2, prueba4);/**/
+  	Probar_configuracion(nn2, prueba5);
+        Probar_configuracion(nn2, prueba6);
+        Probar_configuracion(nn2, prueba7);
+        Probar_configuracion(nn2, prueba8);
+        Probar_configuracion(nn2, prueba9);
         System.out.println("*********************************");
-        Probar_configuracion(nn, prueba10);
-        Probar_configuracion(nn, prueba11);
-        Probar_configuracion(nn, prueba12);
-        Probar_configuracion(nn, prueba13);
-        Probar_configuracion(nn, prueba14);
-        Probar_configuracion(nn, prueba15);
-        Probar_configuracion(nn, prueba16);
-        Probar_configuracion(nn, prueba17);
-        Probar_configuracion(nn, prueba18);
-        Probar_configuracion(nn, prueba19);
-        Probar_configuracion(nn, prueba20);
+        Probar_configuracion(nn2, prueba10);
+        Probar_configuracion(nn2, prueba11);
+        Probar_configuracion(nn2, prueba12);
+        Probar_configuracion(nn2, prueba13);
+        Probar_configuracion(nn2, prueba14);
+        Probar_configuracion(nn2, prueba15);
+        Probar_configuracion(nn2, prueba16);
+        Probar_configuracion(nn2, prueba17);
+        Probar_configuracion(nn2, prueba18);
+        Probar_configuracion(nn2, prueba19);
+        Probar_configuracion(nn2, prueba20);
 
        
     }
