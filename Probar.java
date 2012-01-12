@@ -20,26 +20,26 @@ static float[] entradas1 = {0.9f, 0.6f, 0.5f, 0.4f};
     static float[] salida2 = {1.0f};
         
 //Datos para probar la red despues del entrenamiento
-    static float[] prueba1 = {0.0f, 0.0f, 0.0f, 0.0f};
-    static float[] prueba2 = {0.0f, 0.0f, 0.0f, 0.1f};
-    static float[] prueba3 = {0.0f, 0.1f, 1.0f, 0.0f};
-    static float[] prueba4 = {0.8f, 0.7f, 0.4f, 1.0f};
-    static float[] prueba5 = {0.3f, 0.4f, 0.5f, 0.6f};
-    static float[] prueba6 = {0.4f, 0.8f, 0.8f, 0.7f};
-    static float[] prueba7 = {0.8f, 0.6f, 0.8f, 0.8f};
-    static float[] prueba8 = {0.4f, 0.9f, 1.0f, 1.0f};
-    static float[] prueba9 = {0.1f, 0.1f, 0.6f, 0.6f};
-    static float[] prueba10 = {0.2f, 0.2f, 0.7f, 0.9f};
-    static float[] prueba11 = {0.5f, 0.1f, 0.4f, 0.8f};
-    static float[] prueba12 = {0.2f, 0.7f, 0.6f, 1.0f};
-    static float[] prueba13 = {0.7f, 0.7f, 0.7f, 0.7f};
-    static float[] prueba14 = {1.0f, 0.9f, 0.8f, 0.7f};
-    static float[] prueba15 = {0.9f, 0.8f, 0.7f, 0.6f};
-    static float[] prueba16 = {0.9f, 0.5f, 0.7f, 0.6f};
-    static float[] prueba17 = {0.6f, 0.4f, 0.8f, 0.6f};
-    static float[] prueba18 = {0.1f, 0.1f, 0.0f, 1.0f};
-    static float[] prueba19 = {0.8f, 0.8f, 0.5f, 0.7f};
-    static float[] prueba20 = {0.6f, 0.8f, 0.8f, 0.9f};
+    static float[] prueba1 = {0.1f, 0.5f, 0.7f, 0.4f};
+    static float[] prueba2 = {0.1f, 0.7f, 1.0f, 0.5f};
+    static float[] prueba3 = {0.1f, 0.1f, 0.4f, 0.9f};
+    static float[] prueba4 = {0.1f, 0.6f, 0.9f, 0.8f};
+    static float[] prueba5 = {0.3f, 0.3f, 0.5f, 0.6f};
+    static float[] prueba6 = {0.4f, 0.1f, 0.6f, 0.8f};
+    static float[] prueba7 = {0.5f, 1.0f, 0.5f, 0.8f};
+    static float[] prueba8 = {0.5f, 1.0f, 0.7f, 0.9f};
+    static float[] prueba9 = {0.6f, 0.6f, 0.6f, 0.7f};
+    static float[] prueba10 = {1.0f, 0.9f, 0.8f, 0.7f};
+    static float[] prueba11 = {0.1f, 0.9f, 0.5f, 0.2f};
+    static float[] prueba12 = {0.2f, 0.3f, 0.4f, 0.4f};
+    static float[] prueba13 = {0.3f, 1.0f, 0.6f, 0.1f};
+    static float[] prueba14 = {0.1f, 0.2f, 0.2f, 0.1f};
+    static float[] prueba15 = {0.4f, 0.7f, 0.1f, 0.6f};
+    static float[] prueba16 = {0.5f, 0.8f, 1.0f, 0.2f};
+    static float[] prueba17 = {0.6f, 0.3f, 1.0f, 0.1f};
+    static float[] prueba18 = {0.8f, 0.2f, 0.8f, 0.2f};
+    static float[] prueba19 = {0.9f, 0.4f, 0.6f, 0.6f};
+    static float[] prueba20 = {1.0f, 0.5f, 0.1f, 1.0f};
     
 
     public static void main(String[] args) {
@@ -81,7 +81,7 @@ static float[] entradas1 = {0.9f, 0.6f, 0.5f, 0.4f};
 
         
         //Probamos la red entrenada con los datos de prueba
-        /**/Probar_configuracion(nn, prueba1);
+        Probar_configuracion(nn, prueba1);
         Probar_configuracion(nn, prueba2);
         Probar_configuracion(nn, prueba3);
         Probar_configuracion(nn, prueba4);/**/
@@ -90,6 +90,7 @@ static float[] entradas1 = {0.9f, 0.6f, 0.5f, 0.4f};
         Probar_configuracion(nn, prueba7);
         Probar_configuracion(nn, prueba8);
         Probar_configuracion(nn, prueba9);
+        System.out.println("*********************************");
         Probar_configuracion(nn, prueba10);
         Probar_configuracion(nn, prueba11);
         Probar_configuracion(nn, prueba12);
@@ -101,6 +102,32 @@ static float[] entradas1 = {0.9f, 0.6f, 0.5f, 0.4f};
         Probar_configuracion(nn, prueba18);
         Probar_configuracion(nn, prueba19);
         Probar_configuracion(nn, prueba20);/**/
+        nn.GuardarRed("test.rna");
+        
+        System.out.println("*******************************************************************");
+        System.out.println("Cargando Datos...");
+        RedNeuronal nn2 = RedNeuronal.CargarRed("Funciona.rna");
+        Probar_configuracion(nn, prueba1);
+        Probar_configuracion(nn, prueba2);
+        Probar_configuracion(nn, prueba3);
+        Probar_configuracion(nn, prueba4);/**/
+  	Probar_configuracion(nn, prueba5);
+        Probar_configuracion(nn, prueba6);
+        Probar_configuracion(nn, prueba7);
+        Probar_configuracion(nn, prueba8);
+        Probar_configuracion(nn, prueba9);
+        System.out.println("*********************************");
+        Probar_configuracion(nn, prueba10);
+        Probar_configuracion(nn, prueba11);
+        Probar_configuracion(nn, prueba12);
+        Probar_configuracion(nn, prueba13);
+        Probar_configuracion(nn, prueba14);
+        Probar_configuracion(nn, prueba15);
+        Probar_configuracion(nn, prueba16);
+        Probar_configuracion(nn, prueba17);
+        Probar_configuracion(nn, prueba18);
+        Probar_configuracion(nn, prueba19);
+        Probar_configuracion(nn, prueba20);
 
        
     }

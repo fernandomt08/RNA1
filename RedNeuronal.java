@@ -42,9 +42,9 @@ class RedNeuronal implements Serializable {
     capaoculta1 = new float[neuronascapa1];
     capaoculta2 = new float[neuronascapa2];
     salidas = new float[numerosalidas];
-    W1 = new float[numeroentradas + 1][neuronascapa1];  //Inicializamos las matrices que almacenan los pesos de las conexiones entre cada capa
-    W2 = new float[neuronascapa1 + 1][neuronascapa2];
-    W3 = new float[neuronascapa2 + 1][numerosalidas];
+    W1 = new float[numeroentradas][neuronascapa1];  //Inicializamos las matrices que almacenan los pesos de las conexiones entre cada capa
+    W2 = new float[neuronascapa1][neuronascapa2];
+    W3 = new float[neuronascapa2][numerosalidas];
     
     generarPesos();		//Inicializa los pesos aleatoriamente
 
@@ -72,15 +72,15 @@ class RedNeuronal implements Serializable {
 //Método para iniciar aleatoriamente cada matriz de pesos(Con valores de -1 a +1)
   public void generarPesos() {
 
-    for (int i = 0; i < numeroentradas + 1; i++)
+    for (int i = 0; i < numeroentradas; i++)
       for (int h = 0; h < neuronascapa1; h++)
         W1[i][h] = 2f * (float) Math.random() - 1f;
         
-    for (int i = 0; i < neuronascapa1 + 1; i++)
+    for (int i = 0; i < neuronascapa1; i++)
       for (int h = 0; h < neuronascapa2; h++)
         W2[i][h] = 2f * (float) Math.random() - 1f;
         
-    for (int h = 0; h < neuronascapa2 + 1; h++)
+    for (int h = 0; h < neuronascapa2; h++)
       for (int o = 0; o < numerosalidas; o++)
         W3[h][o] = 2f * (float) Math.random() - 1f;
   }
