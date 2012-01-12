@@ -54,7 +54,7 @@ class RedNeuronal implements Serializable {
   }
   
   
-  
+
   
 	//Este metodo agrega los valores con los que se va a entrenar la red
   public void agregarDatosEntrenamiento(float[] entradas, float[] salidas) {
