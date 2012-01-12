@@ -1,23 +1,35 @@
 public class Probar {
 //Datos de entrenamiento
 //Patrones de Calidad mala
-    static float[] entradas1 = {0.9f, 0.4f, 0.3f, 0.4f};
+/*    static float[] entradas1 = {0.9f, 0.4f, 0.3f, 0.4f};
     static float[] entradas2 = {0.6f, 0.4f, 0.5f, 0.4f};
     static float[] entradas3 = {0.5f, 0.5f, 0.4f, 0.5f};
     static float[] entradas4 = {0.4f, 0.8f, 0.5f, 0.3f};
     static float[] entradas5 = {0.3f, 0.5f, 0.6f, 0.2f};
-    static float[] entradas5a = {0.6f, 0.6f, 1.0f, 0.6f};
+    static float[] entradas5a = {0.6f, 0.6f, 1.0f, 0.6f};*/
     static float[] entradas5b = {0.0f, 0.0f, 1.0f, 0.0f};
 
+    static float[] entradas1 = {0.9f, 0.6f, 0.5f, 0.4f};
+    static float[] entradas2 = {0.8f, 0.7f, 0.6f, 0.5f};
+    static float[] entradas3 = {0.5f, 0.5f, 0.4f, 0.5f};
+    static float[] entradas4 = {0.4f, 0.8f, 0.6f, 0.3f};
+    static float[] entradas5 = {0.7f, 0.5f, 0.6f, 0.4f};
+    static float[] entradas5a = {0.1f, 0.1f, .5f, 0.3f};
 //Patrones de Calidad Buena
-    static float[] entradas6 = {1.0f, 0.9f, 0.9f, 1.0f};
+/*    static float[] entradas6 = {1.0f, 0.9f, 0.9f, 1.0f};
     static float[] entradas7 = {0.8f, 0.9f, 0.9f, 1.0f}; //***************
     static float[] entradas8 = {0.7f, 0.7f, 0.8f, 0.7f};
     static float[] entradas9 = {0.7f, 0.8f, 0.9f, 1.0f};
     static float[] entradas10 = {0.8f, 0.7f, 0.5f, 0.7f};
-    static float[] entradas10a = {0.8f, 0.7f, 0.8f, 0.2f};
-    static float[] entradas10b = {0.3f, 0.5f, 0.6f, 0.7f};
-    
+    static float[] entradas10a = {0.8f, 0.7f, 0.8f, 0.2f};  */
+    static float[] entradas10b = {0.3f, 0.4f, 0.6f, 0.7f};
+
+    static float[] entradas6 = {1.0f, 0.9f, 0.9f, 9.0f};
+    static float[] entradas7 = {0.8f, 0.9f, 0.9f, 1.0f};
+    static float[] entradas8 = {0.7f, 0.8f, 0.8f, 0.9f};
+    static float[] entradas9 = {0.5f, 0.6f, 0.7f, 0.8f};
+    static float[] entradas10 = {0.8f, 0.8f, 0.9f, 0.8f};
+    static float[] entradas10a = {0.8f, 0.8f, 0.8f, 1.0f};
 
     static float[] salidas1 = {-1f};
     static float[] salidas2 = {-1f};
@@ -73,25 +85,22 @@ public class Probar {
         nn.agregarDatosEntrenamiento(entradas5, salidas5);
         nn.agregarDatosEntrenamiento(entradas10, salidas10);
         nn.agregarDatosEntrenamiento(entradas5a, salidas5a);
+        nn.agregarDatosEntrenamiento(entradas10a, salidas10a);
         nn.agregarDatosEntrenamiento(entradas5b, salidas5b);
         nn.agregarDatosEntrenamiento(entradas10b, salidas10b);
 
         double error = 0;
-        //Realizamos el entrenamiento de la red //Hasta obtener 100,000 iteraciones
-        double promedioe = 0d;
+        //Realizamos el entrenamiento de la red 
         long tiempoInicio = System.currentTimeMillis();
-        for(int ent = 0;ent<1;ent++){
+
 		for (int i = 0;; i++) {
 		    error = (double)nn.entrenar();
-		    if(error<1e-6 | i >300000 ){
+		    if(error<1e-4 | i >3000){
 	        	System.out.println("Ciclos Totales: " + i + " Error= " + error/100.0);
 	        	break;
 	            }
-//	            System.out.println(i + " " + error);
-	            error = 0;
+	        }
 
-
-	}
 
 	System.out.println("Tiempo Total: " + (System.currentTimeMillis() - tiempoInicio)/1000.0 + "S");
 
@@ -100,10 +109,10 @@ public class Probar {
 
         
         //Probamos la red entrenada con los datos de prueba
-        Probar_configuracion(nn, prueba1);
+        /**/Probar_configuracion(nn, prueba1);
         Probar_configuracion(nn, prueba2);
         Probar_configuracion(nn, prueba3);
-        Probar_configuracion(nn, prueba4);
+        Probar_configuracion(nn, prueba4);/**/
   	Probar_configuracion(nn, prueba5);
         Probar_configuracion(nn, prueba6);
         Probar_configuracion(nn, prueba7);
@@ -119,12 +128,12 @@ public class Probar {
         Probar_configuracion(nn, prueba17);
         Probar_configuracion(nn, prueba18);
         Probar_configuracion(nn, prueba19);
-        Probar_configuracion(nn, prueba20);
-/*      */  
+        Probar_configuracion(nn, prueba20);/**/
+
         
         
-        	}
-        	/*
+        	
+	/*
 	//Guardamos el objeto red neuronal
         nn.GuardarRed("test.rna");
         System.out.println("Cargando configuracion de red:");
